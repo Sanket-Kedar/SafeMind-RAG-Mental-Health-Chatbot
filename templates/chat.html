@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafeMind - Your Mental Wellness Companion</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+
+<body>
+    <!-- Auth Container -->
+    <div id="authContainer" class="auth-wrapper">
+        <div class="auth-card">
+            <div class="auth-header">
+                <div class="brand-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <h1 class="auth-title">SafeMind</h1>
+                <p class="auth-subtitle">Your compassionate AI companion for mental wellness</p>
+            </div>
+
+            <!-- Tab Switcher -->
+            <div class="auth-tabs">
+                <button class="auth-tab active" id="loginTab" onclick="switchAuthMode('login')">
+                    Login
+                </button>
+                <button class="auth-tab" id="signupTab" onclick="switchAuthMode('signup')">
+                    Sign Up
+                </button>
+            </div>
+
+            <!-- Login Form -->
+            <form id="loginForm" class="auth-form-content">
+                <div class="form-field">
+                    <label for="loginEmail" class="field-label">
+                        <i class="fas fa-envelope"></i>
+                        Email
+                    </label>
+                    <input type="email" id="loginEmail" class="field-input" placeholder="your@email.com" required>
+                </div>
+
+                <div class="form-field">
+                    <label for="loginPassword" class="field-label">
+                        <i class="fas fa-lock"></i>
+                        Password
+                    </label>
+                    <input type="password" id="loginPassword" class="field-input" placeholder="Enter your password"
+                        required>
+                </div>
+
+                <button type="submit" class="auth-submit-btn">
+                    <span>Login</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+
+                <div id="loginError" class="auth-error"></div>
+                <div id="loginLoading" class="auth-loading">
+                    <div class="spinner"></div>
+                    <p>Logging you in...</p>
+                </div>
+            </form>
+
+            <!-- Signup Form -->
+            <form id="signupForm" class="auth-form-content" style="display: none;">
+                <div class="form-field">
+                    <label for="signupEmail" class="field-label">
+                        <i class="fas fa-envelope"></i>
+                        Email <span class="required">*</span>
+                    </label>
+                    <input type="email" id="signupEmail" class="field-input" placeholder="your@email.com" required>
+                </div>
+
+                <div class="form-field">
+                    <label for="signupName" class="field-label">
+                        <i class="fas fa-user-tag"></i>
+                        Name <span class="required">*</span>
+                    </label>
+                    <input type="text" id="signupName" class="field-input" placeholder="What should I call you?"
+                        required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-field">
+                        <label for="signupAge" class="field-label">
+                            <i class="fas fa-calendar-alt"></i>
+                            Age <span class="required">*</span>
+                        </label>
+                        <input type="number" id="signupAge" class="field-input" placeholder="Age" min="13" max="120"
+                            required>
+                    </div>
+
+                    <div class="form-field">
+                        <label for="signupGender" class="field-label">
+                            <i class="fas fa-user"></i>
+                            Gender <span class="required">*</span>
+                        </label>
+                        <select id="signupGender" class="field-input" required>
+                            <option value="">Select</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Non-binary">Non-binary</option>
+                            <option value="Prefer not to say">Prefer not to say</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-field">
+                    <label for="signupLocation" class="field-label">
+                        <i class="fas fa-map-marker-alt"></i>
+                        Location <span class="required">*</span>
+                    </label>
+                    <input type="text" id="signupLocation" class="field-input" placeholder="City, Country" required>
+                </div>
+
+                <div class="form-field">
+                    <label for="signupPassword" class="field-label">
+                        <i class="fas fa-lock"></i>
+                        Password <span class="required">*</span>
+                    </label>
+                    <input type="password" id="signupPassword" class="field-input" placeholder="At least 8 characters"
+                        minlength="8" required>
+                    <small class="field-hint">Password must be at least 8 characters</small>
+                </div>
+
+                <button type="submit" class="auth-submit-btn">
+                    <span>Create Account</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+
+                <div id="signupError" class="auth-error"></div>
+                <div id="signupLoading" class="auth-loading">
+                    <div class="spinner"></div>
+                    <p>Creating your account...</p>
+                </div>
+            </form>
+
+            <div class="auth-footer">
+                <p><i class="fas fa-shield-alt"></i> Your privacy is our priority. All conversations are confidential.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Layout (Chat) -->
+    <div id="chatContainer" class="main-layout" style="display: none;">
+        <!-- Sidebar Overlay -->
+        <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+        <!-- Sidebar -->
+        <div class="sidebar collapsed" id="sidebar">
+            <div class="sidebar-header">
+                <button class="new-chat-btn" onclick="createNewChat()">
+                    <i class="fas fa-plus"></i> New Chat
+                </button>
+            </div>
+            <div class="chat-list" id="chatList">
+                <!-- Chat items will be added here -->
+            </div>
+            <div class="user-profile">
+                <div class="user-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="user-details">
+                    <span class="user-name" id="displayUserName">User</span>
+                    <span class="user-sub" onclick="resetIntake()">Log out</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chat Area -->
+        <div class="chat-wrapper">
+            <!-- Header -->
+            <div class="chat-header">
+                <div class="header-left">
+                    <button class="mobile-menu-btn" onclick="toggleSidebar()">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <button class="desktop-sidebar-btn" onclick="toggleSidebarDesktop()" title="Toggle Sidebar">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div class="brand-logo">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <div class="header-info">
+                        <h2>SafeMind</h2>
+                        <p class="status-text"><span class="status-dot"></span>Always here for you</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Messages Area -->
+            <div class="messages-container" id="messagesArea">
+                <!-- Messages will be loaded here -->
+            </div>
+
+            <!-- Input Area -->
+            <div class="chat-footer">
+                <div class="input-container">
+                    <textarea id="messageInput" class="message-input" placeholder="Share your thoughts here..." rows="1"
+                        onkeydown="handleKeyDown(event)"></textarea>
+                    <button class="send-btn" onclick="sendMessage()" id="sendBtn">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+                <div class="footer-note">
+                    <i class="fas fa-info-circle"></i>
+                    <span>SafeMind provides support but is not a substitute for professional help.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', path='script.js') }}"></script>
+</body>
+
+</html>

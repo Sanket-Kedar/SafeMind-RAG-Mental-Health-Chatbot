@@ -1,0 +1,10 @@
+fastapi
+uvicorn[standard]
+python-multipart
+langchain-pinecone
+langchain-community
+langchain
+python-dotenv
+flask
+werkzeug
+jinja2

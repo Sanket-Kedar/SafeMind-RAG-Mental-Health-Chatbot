@@ -1,0 +1,18 @@
+# --- Secrets & API Keys ---
+.env
+
+# --- Database (user data) ---
+safemind.db
+
+# --- Pinecone Local State ---
+indexing_state.json
+
+# --- Knowledge Base PDFs (too large for GitHub) ---
+data/
+
+# --- Python Cache ---
+__pycache__/
+src/__pycache__/
+
+# --- setup.py (not needed) ---
+setup.py
