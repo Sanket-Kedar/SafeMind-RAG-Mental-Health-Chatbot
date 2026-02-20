@@ -34,9 +34,9 @@ print("Starting SafeMind initialization...", file=sys.stderr)
 print("Loading environment variables...", file=sys.stderr)
 load_dotenv()
 
-SECRET_KEY = os.getenv("FLASK_SECRET_KEY")
+SECRET_KEY = os.getenv("SECRET_KEY")
 if not SECRET_KEY:
-    print("ERROR: FLASK_SECRET_KEY not found in .env file!", file=sys.stderr)
+    print("ERROR: SECRET_KEY not found in .env file!", file=sys.stderr)
     sys.exit(1)
 
 PINECONE_API_KEY = os.getenv("PINECONE_API_KEY")
