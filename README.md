@@ -1,6 +1,6 @@
-# 🧠 SafeMind — RAG-Based Mental Health Chatbot
+# 🧠 SafeMind:RAG-Based Mental Health Chatbot
 
-> **An empathetic AI-powered mental health companion built with Retrieval-Augmented Generation (RAG), LangChain, Pinecone, and Llama 3.2.**
+> **An empathetic AI-powered mental health companion built with Retrieval-Augmented Generation (RAG), LangChain, Pinecone and Llama 3.2.**
 
 SafeMind is a context-aware mental health chatbot that provides personalized emotional support, psychoeducation, and crisis intervention — backed by a curated knowledge base of trusted mental health literature.
 
