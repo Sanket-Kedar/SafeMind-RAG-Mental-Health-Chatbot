@@ -163,11 +163,4 @@ SafeMind-RAG-Mental-Health-Chatbot/
 
 ---
 
-## 👨‍💻 Author
-
-**Sanket Kedar**
-- GitHub: [@Sanket-Kedar](https://github.com/Sanket-Kedar)
-
----
-
 > *SafeMind provides support but is not a substitute for professional help.*
